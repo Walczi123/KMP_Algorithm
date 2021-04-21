@@ -8,12 +8,13 @@ namespace AZ_KMP
         {
             //string text = "Ala ma kota, a kot ma Ale";
             //string pattern = "kota";
-            string text = "abcdefg rightleft efgleftpowko";
-            string pattern = "efgleft";
-            var result = Algorithms.KMP(text, pattern);    
-            if(result!= -1)
+            string text = "blablacblblacblacblcablacblc";
+            string pattern = "blacblc";
+            var result = Algorithms.KMP(text, pattern);
+            if (result != null && result.Count>0)
             {
-                Console.WriteLine($"Found pattern at index {result}.");
+                foreach(var res in result)
+                    Console.WriteLine($"Found pattern at index {res}.");
             }
             else
             {
