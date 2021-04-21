@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AZ_KMP
 {
@@ -29,13 +30,20 @@ namespace AZ_KMP
                     }
                 }
             }
+            System.Console.WriteLine("Tabela kmp:");
+            foreach(var val in kmpTable)
+            {
+                Console.Write(val + " ");
+            }
+            Console.Write("\n");
             return kmpTable;
         }
 
-        public static int KMP(string text, string pattern)
+        public static List<int> KMP(string text, string pattern)
         {
             int n = text.Length, m = pattern.Length;
             int[] kmpTable = ComputeTable(pattern);
+            List<int> results = new List<int>();
             int i = 0, j = 0;
             while (i < n)
             {
@@ -49,7 +57,9 @@ namespace AZ_KMP
                     //Console.WriteLine("Found pattern "
                     //              + "at index " + (i - j));
                     //j = kmpTable[j - 1];
-                    return (i - j);
+                    results.Add(i - j);
+                    i = i + 1;
+                    j = 0;
                 }
                 else if (i < n && pattern[j] != text[i])
                 {
@@ -63,7 +73,7 @@ namespace AZ_KMP
                     }
                 }
             }
-            return -1;
+            return results;
         }
     }
 }
