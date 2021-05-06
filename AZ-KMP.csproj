@@ -61,6 +61,7 @@
     <Compile Include="Algorithms.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadWrite.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
