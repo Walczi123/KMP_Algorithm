@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AZ_KMP
 {
@@ -7,19 +8,34 @@ namespace AZ_KMP
         static void Main(string[] args)
         {
             //string text = "Ala ma kota, a kot ma Ale";
-            //string pattern = "kot";
-            string text = "blablacblblacblacblcablacblc";
-            string pattern = "blacblc";
-            var result = Algorithms.KMP(text, pattern);
-            if (result != null && result.Count>0)
+            //string pattern = "kota";
+
+            var lines = ReadWrite.ReadFile();
+
+            //string text = "blablacblblacblacblcablacblc";
+            //string pattern = "blacblc";
+
+            if (lines.Count == 0)
+                return;
+
+            var results = new List<List<int>>();
+
+            foreach(var instance in lines)
             {
-                foreach(var res in result)
-                    Console.WriteLine($"Found pattern at index {res}.");
+                var result = Algorithms.KMP(instance.Item1, instance.Item2);
+                if (result != null && result.Count > 0)
+                {
+                    foreach (var res in result)
+                        Console.WriteLine($"Znaleziono wzorzec na indeksie {res}.");
+                }
+                else
+                {
+                    Console.WriteLine("Nie znaleziono wzorca.");
+                }
+                results.Add(result);
             }
-            else
-            {
-                Console.WriteLine("Pattern not found.");
-            }
+            ReadWrite.WriteFile(results);
+            Console.WriteLine("Zakończono!");
             Console.ReadKey();
         }
     }
