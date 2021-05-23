@@ -7,7 +7,7 @@ namespace AZ_KMP
         static void Main(string[] args)
         {
             //string text = "Ala ma kota, a kot ma Ale";
-            //string pattern = "kota";
+            //string pattern = "kot";
             string text = "blablacblblacblacblcablacblc";
             string pattern = "blacblc";
             var result = Algorithms.KMP(text, pattern);

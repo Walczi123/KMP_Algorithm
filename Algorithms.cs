@@ -5,33 +5,94 @@ namespace AZ_KMP
 {
     static class Algorithms
     {
+        //private static int[] ComputeTable(string pattern)
+        //{
+        //    int n = pattern.Length, m = 0, i = 1;
+        //    int[] kmpTable = new int[n];
+        //    while(i < n)
+        //    {
+        //        if(pattern[i] == pattern[m])
+        //        {
+        //            kmpTable[i] = m + 1;
+        //            m++;
+        //            i++;
+        //        }
+        //        else
+        //        {
+        //            if (m != 0)
+        //            {
+        //                m = kmpTable[m - 1];
+        //            }
+        //            else
+        //            {
+        //                kmpTable[i] = m;
+        //                i++;
+        //            }
+        //        }
+        //    }
+        //    System.Console.WriteLine("Tabela kmp:");
+        //    foreach(var val in kmpTable)
+        //    {
+        //        Console.Write(val + " ");
+        //    }
+        //    Console.Write("\n");
+        //    return kmpTable;
+        //}
+
+        //public static List<int> KMP(string text, string pattern)
+        //{
+        //    int n = text.Length, m = pattern.Length;
+        //    int[] kmpTable = ComputeTable(pattern);
+        //    List<int> results = new List<int>();
+        //    int i = 0, j = 0;
+        //    while (i < n)
+        //    {
+        //        if (pattern[j] == text[i])
+        //        {
+        //            j++;
+        //            i++;
+        //        }
+        //        if (j == m)
+        //        {
+        //            //Console.WriteLine("Found pattern "
+        //            //              + "at index " + (i - j));
+        //            //j = kmpTable[j - 1];
+        //            results.Add(i - j);
+        //            i = i + 1;
+        //            j = 0;
+        //        }
+        //        else if (i < n && pattern[j] != text[i])
+        //        {
+        //            if (j != 0)
+        //            {
+        //                j = kmpTable[j - 1];
+        //            }
+        //            else
+        //            {
+        //                i = i + 1;
+        //            }
+        //        }
+        //    }
+        //    return results;
+        //}
+
         private static int[] ComputeTable(string pattern)
         {
-            int n = pattern.Length, m = 0, i = 1;
-            int[] kmpTable = new int[n];
-            while(i < n)
+            int m = pattern.Length, k = 0;
+            int[] kmpTable = new int[m];
+            kmpTable[0] = 0;
+            for(int q=1; q<m; q++)
             {
-                if(pattern[i] == pattern[m])
-                {
-                    kmpTable[i] = m + 1;
-                    m++;
-                    i++;
-                }
-                else
-                {
-                    if (m != 0)
-                    {
-                        m = kmpTable[m - 1];
-                    }
-                    else
-                    {
-                        kmpTable[i] = m;
-                        i++;
-                    }
-                }
+                while (k > 0 && pattern[k] != pattern[q])
+                   k = kmpTable[k];
+
+                if (pattern[k] == pattern[q])
+                    k = k + 1;
+
+                kmpTable[q] = k;
             }
             System.Console.WriteLine("Tabela kmp:");
-            foreach(var val in kmpTable)
+            foreach (var val in kmpTable)
             {
                 Console.Write(val + " ");
             }
@@ -44,33 +105,19 @@ namespace AZ_KMP
             int n = text.Length, m = pattern.Length;
             int[] kmpTable = ComputeTable(pattern);
             List<int> results = new List<int>();
-            int i = 0, j = 0;
-            while (i < n)
+            int q = 0;
+            for (int i = 0; i < n; i++)
             {
-                if (pattern[j] == text[i])
+                while (q > 0 && pattern[q] != text[i])
+                    q = kmpTable[q-1];
+
+                if (pattern[q] == text[i])
+                    q = q + 1;
+
+                if (q == m)
                 {
-                    j++;
-                    i++;
-                }
-                if (j == m)
-                {
-                    //Console.WriteLine("Found pattern "
-                    //              + "at index " + (i - j));
-                    //j = kmpTable[j - 1];
-                    results.Add(i - j);
-                    i = i + 1;
-                    j = 0;
-                }
-                else if (i < n && pattern[j] != text[i])
-                {
-                    if (j != 0)
-                    {
-                        j = kmpTable[j - 1];
-                    }
-                    else
-                    {
-                        i = i + 1;
-                    }
+                    results.Add(i - m);
+                    q = kmpTable[q-1];
                 }
             }
             return results;
