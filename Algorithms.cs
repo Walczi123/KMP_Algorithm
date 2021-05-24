@@ -116,8 +116,32 @@ namespace AZ_KMP
 
                 if (q == m)
                 {
-                    results.Add(i - m);
+                    results.Add(i - m + 1);
                     q = kmpTable[q-1];
+                }
+            }
+            return results;
+        }
+
+        public static List<int> NaiveAglorithm(string text, string pattern)
+        {
+            int n = text.Length, m = pattern.Length, j;
+            bool pattern_match;
+            List<int> results = new List<int>();
+            for (int i = 0; i <= n - m; i++)
+            {
+                pattern_match = true;
+
+                for (j = 0; j < m; j++)
+                    if (text[j + i] != pattern[j])
+                    {
+                        pattern_match = false;
+                        break;
+                    }
+
+                if (pattern_match)
+                {
+                    results.Add(i);
                 }
             }
             return results;
