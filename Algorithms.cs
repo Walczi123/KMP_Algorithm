@@ -76,22 +76,27 @@ namespace AZ_KMP
         //    return results;
         //}
 
-        private static int[] ComputeTable(string pattern)
+        private static int[] ComputeTable(string pattern, ref int comparisons)
         {
             int m = pattern.Length, k = 0;
             int[] kmpTable = new int[m];
             kmpTable[0] = 0;
             for(int q=1; q<m; q++)
             {
-                while (k > 0 && pattern[k] != pattern[q])
-                   k = kmpTable[k];
+                comparisons++;
+                while (k > 0 && pattern[k] != pattern[q] && ++comparisons != 0)
+                {
+                    comparisons++;
+                    k = kmpTable[k];
+                }
+                   
 
-                if (pattern[k] == pattern[q])
+                if (pattern[k] == pattern[q] && ++comparisons != 0)
                     k = k + 1;
 
                 kmpTable[q] = k;
             }
-            System.Console.WriteLine("Tabela kmp:");
+            Console.WriteLine("Tabela kmp:");
             foreach (var val in kmpTable)
             {
                 Console.Write(val + " ");
@@ -100,18 +105,19 @@ namespace AZ_KMP
             return kmpTable;
         }
 
-        public static List<int> KMP(string text, string pattern)
+        public static (List<int>, int) KMP(string text, string pattern)
         {
+            int comparisons = 0;
             int n = text.Length, m = pattern.Length;
-            int[] kmpTable = ComputeTable(pattern);
+            int[] kmpTable = ComputeTable(pattern, ref comparisons);
             List<int> results = new List<int>();
             int q = 0;
             for (int i = 0; i < n; i++)
             {
-                while (q > 0 && pattern[q] != text[i])
+                while (q > 0 && pattern[q] != text[i] && ++comparisons != 0)
                     q = kmpTable[q-1];
 
-                if (pattern[q] == text[i])
+                if (pattern[q] == text[i] && ++comparisons != 0)
                     q = q + 1;
 
                 if (q == m)
@@ -120,11 +126,12 @@ namespace AZ_KMP
                     q = kmpTable[q-1];
                 }
             }
-            return results;
+            return (results, comparisons);
         }
 
-        public static List<int> NaiveAglorithm(string text, string pattern)
+        public static (List<int>, int) NaiveAglorithm(string text, string pattern)
         {
+            int comparisons = 0;
             int n = text.Length, m = pattern.Length, j;
             bool pattern_match;
             List<int> results = new List<int>();
@@ -133,18 +140,20 @@ namespace AZ_KMP
                 pattern_match = true;
 
                 for (j = 0; j < m; j++)
-                    if (text[j + i] != pattern[j])
+                {
+                    if (text[j + i] != pattern[j] && ++comparisons != 0)
                     {
                         pattern_match = false;
                         break;
                     }
+                }
 
                 if (pattern_match)
                 {
                     results.Add(i);
                 }
             }
-            return results;
+            return (results, comparisons);
         }
     }
 }

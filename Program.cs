@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace AZ_KMP
@@ -42,6 +43,22 @@ namespace AZ_KMP
             //ReadWrite.WriteFile(results);
             //Console.WriteLine("Zakończono!");
             //Console.ReadKey();
+        }
+    }
+
+    class Test
+    {
+        void MoveTheTestToAnotherProject()
+        {
+            string text = "0123456789";
+            string pattern = "23";
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            var (result1, comparisons) = Algorithms.KMP(text, pattern);
+            stopwatch.Stop();
+
+            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
         }
     }
 }
