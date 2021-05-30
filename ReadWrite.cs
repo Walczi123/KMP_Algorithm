@@ -6,7 +6,7 @@ namespace AZ_KMP
 {
     public static class ReadWrite
     {
-        public static List<(string, string)> ReadFile()
+        public static List<(string, string, int)> ReadFile()
         {
             string filename;
             Console.WriteLine("Proszę podać plik wejściowy (domyślnie input.txt)");
@@ -16,7 +16,7 @@ namespace AZ_KMP
             else
                 filename = input;
 
-            List<(string, string)> results = new List<(string, string)>();
+            List<(string, string, int)> results = new List<(string, string, int)>();
 
             using(StreamReader sr = File.OpenText(filename))
             {
@@ -24,7 +24,10 @@ namespace AZ_KMP
                 while ((line = sr.ReadLine()) != null)
                 {
                     var split = line.Split(':');
-                    results.Add((split[0], split[1]));
+                    if(split.Length == 3)
+                        results.Add((split[0], split[1], Int32.Parse(split[2])));
+                    else if (split.Length == 2)
+                        results.Add((split[0], split[1], -1));
                 }
             }
 
@@ -55,9 +58,9 @@ namespace AZ_KMP
 
         }
 
-        public static List<(string, string)> ReadFile(string filePath)
+        public static List<(string, string, int)> ReadFile(string filePath)
         {
-            List<(string, string)> results = new List<(string, string)>();
+            List<(string, string, int)> results = new List<(string, string, int)>();
 
             using (StreamReader sr = File.OpenText(filePath))
             {
@@ -65,7 +68,10 @@ namespace AZ_KMP
                 while ((line = sr.ReadLine()) != null)
                 {
                     var split = line.Split(':');
-                    results.Add((split[0], split[1]));
+                    if(split.Length == 3)
+                        results.Add((split[0], split[1], Int32.Parse(split[2])));
+                    else if (split.Length == 2)
+                        results.Add((split[0], split[1], -1));
                 }
             }
 

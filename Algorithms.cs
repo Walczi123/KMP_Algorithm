@@ -129,7 +129,38 @@ namespace AZ_KMP
             return (results, comparisons);
         }
 
-        public static (List<int>, int) NaiveAglorithm(string text, string pattern)
+        public static (int[], int) GetTable(string pattern)
+        {
+            int comparisons = 0;
+            var result = ComputeTable(pattern, ref comparisons);
+            return (result, comparisons);
+        }
+
+        public static (List<int>, int) KMPKnownTable(string text, string pattern, int[] kmpTable)
+        {
+            int comparisons = 0;
+            int n = text.Length;
+            int m = kmpTable.Length;
+            List<int> results = new List<int>();
+            int q = 0;
+            for (int i = 0; i < n; i++)
+            {
+                while (q > 0 && pattern[q] != text[i] && ++comparisons != 0)
+                    q = kmpTable[q - 1];
+
+                if (pattern[q] == text[i] && ++comparisons != 0)
+                    q = q + 1;
+
+                if (q == m)
+                {
+                    results.Add(i - m + 1);
+                    q = kmpTable[q - 1];
+                }
+            }
+            return (results, comparisons);
+        }
+
+        public static (List<int>, int) NaiveAlgorithm(string text, string pattern)
         {
             int comparisons = 0;
             int n = text.Length, m = pattern.Length, j;
