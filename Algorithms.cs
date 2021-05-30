@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AZ_KMP
 {
-    static class Algorithms
+    public static class Algorithms
     {
         //private static int[] ComputeTable(string pattern)
         //{

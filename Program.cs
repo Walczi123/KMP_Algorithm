@@ -14,7 +14,7 @@ namespace AZ_KMP
             //string text = "0123456789";
             //string pattern = "23";
 
-            //var lines = ReadWrite.ReadFile();
+            var lines = ReadWrite.ReadFile();
 
             //string text = "blablacblblacblacblcablacblc";
             //string pattern = "blacblc";
@@ -22,19 +22,19 @@ namespace AZ_KMP
             //var result1 = Algorithms.KMP(text, pattern);
             //var result2 = Algorithms.NaiveAglorithm(text, pattern);
 
-            var lines = InputGenerator.GenerateInput();
+            //var lines = InputGenerator.GenerateInput();
 
             if (lines.Count == 0)
                 return;
 
-            var results = new List<List<int>>();
+            var results = new List<(List<int>, int)>();
 
             foreach (var instance in lines)
             {
                 var result = Algorithms.KMP(instance.Item1, instance.Item2);
-                if (result != null && result.Count > 0)
+                if (result.Item1 != null && result.Item1.Count > 0)
                 {
-                    foreach (var res in result)
+                    foreach (var res in result.Item1)
                         Console.WriteLine($"Znaleziono wzorzec na indeksie {res}.");
                 }
                 else
@@ -48,22 +48,6 @@ namespace AZ_KMP
             Console.ReadKey();
 
 
-        }
-    }
-
-    class Test
-    {
-        void MoveTheTestToAnotherProject()
-        {
-            string text = "0123456789";
-            string pattern = "23";
-            Stopwatch stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-            var (result1, comparisons) = Algorithms.KMP(text, pattern);
-            stopwatch.Stop();
-
-            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
         }
     }
 }

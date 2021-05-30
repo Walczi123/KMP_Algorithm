@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZ-KMP", "AZ-KMP.csproj", "{B500A7AC-9BC0-4CCB-A7F1-E819A6500036}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZ-KMP_Tests", "Tests\AZ-KMP_Tests\AZ-KMP_Tests.csproj", "{D033DAA1-4360-4A3D-84E5-3940808CA952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputGenerator", "InputGenerator\InputGenerator\InputGenerator.csproj", "{AE745F14-060F-40D1-A30E-F0D08FB296BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B500A7AC-9BC0-4CCB-A7F1-E819A6500036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B500A7AC-9BC0-4CCB-A7F1-E819A6500036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B500A7AC-9BC0-4CCB-A7F1-E819A6500036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D033DAA1-4360-4A3D-84E5-3940808CA952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D033DAA1-4360-4A3D-84E5-3940808CA952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D033DAA1-4360-4A3D-84E5-3940808CA952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D033DAA1-4360-4A3D-84E5-3940808CA952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE745F14-060F-40D1-A30E-F0D08FB296BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE745F14-060F-40D1-A30E-F0D08FB296BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE745F14-060F-40D1-A30E-F0D08FB296BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE745F14-060F-40D1-A30E-F0D08FB296BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

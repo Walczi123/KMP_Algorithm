@@ -31,7 +31,7 @@ namespace AZ_KMP
             return results;
         }
 
-        public static void WriteFile(List<List<int>> results)
+        public static void WriteFile(List<(List<int>, int)> results)
         {
             string filename;
             Console.WriteLine("Proszę podać plik wyjściowy (domyślnie output.txt)");
@@ -47,12 +47,29 @@ namespace AZ_KMP
                 foreach (var instance in results)
                 {
                     sw.Write($"{++count}. ");
-                    foreach (var res in instance)
+                    foreach (var res in instance.Item1)
                         sw.Write($"{res}, ");
                     sw.WriteLine();
                 }
             }
 
+        }
+
+        public static List<(string, string)> ReadFile(string filePath)
+        {
+            List<(string, string)> results = new List<(string, string)>();
+
+            using (StreamReader sr = File.OpenText(filePath))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var split = line.Split(':');
+                    results.Add((split[0], split[1]));
+                }
+            }
+
+            return results;
         }
     }
 }
