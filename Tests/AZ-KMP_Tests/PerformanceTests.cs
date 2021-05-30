@@ -23,20 +23,20 @@ namespace AZ_KMP_Tests
 
             foreach (var instance in inputs)
             {
-                KMPStopW.Start();
-                var KMPres = Algorithms.KMP(instance.Item1, instance.Item2);
-                KMPStopW.Stop();
-                KMPResults.Add((KMPres.Item1, KMPres.Item2, KMPStopW.ElapsedTicks));
-                KMPStopW.Reset();
-            }
-
-            foreach (var instance in inputs)
-            {
                 naiveStopW.Start();
                 var naiveres = Algorithms.NaiveAlgorithm(instance.Item1, instance.Item2);
                 naiveStopW.Stop();
                 naiveResults.Add((naiveres.Item1, naiveres.Item2, naiveStopW.ElapsedTicks));
                 naiveStopW.Reset();
+            }
+
+            foreach (var instance in inputs)
+            {
+                KMPStopW.Start();
+                var KMPres = Algorithms.KMP(instance.Item1, instance.Item2);
+                KMPStopW.Stop();
+                KMPResults.Add((KMPres.Item1, KMPres.Item2, KMPStopW.ElapsedTicks));
+                KMPStopW.Reset();
             }
 
             double avgKMP = 0, avgNaive = 0;
@@ -50,8 +50,6 @@ namespace AZ_KMP_Tests
             using (StreamWriter sw = File.CreateText("test1output.txt"))
             {
                 sw.WriteLine("inputTextLength:inputPatternLength:patternOccurences:KMPComparisons:KMPTime:KMPOccurences:naiveComparisons:naiveTime:naiveOccurences");
-                //sw.WriteLine($"{KMPStopW.ElapsedMilliseconds}:{naiveStopW.ElapsedMilliseconds}");
-                //sw.WriteLine($"{avgKMP}:{avgNaive}");
                 for (int i = 0; i < inputs.Count; i++)
                     sw.WriteLine($"{inputs[i].Item1.Length}:{inputs[i].Item2.Length}:{inputs[i].Item3}:{KMPResults[i].Item2}:{KMPResults[i].Item3}:{KMPResults[i].Item1.Count}:{naiveResults[i].Item2}:{naiveResults[i].Item3}:{naiveResults[i].Item1.Count}");
             }
@@ -74,6 +72,16 @@ namespace AZ_KMP_Tests
             var naiveResults = new List<(List<int>, int, long)>();
 
             long KMPtime = 0, naivetime = 0;
+
+            foreach (var instance in inputs)
+            {
+                naiveStopW.Start();
+                var naiveres = Algorithms.NaiveAlgorithm(instance.Item1, instance.Item2);
+                naiveStopW.Stop();
+                naiveResults.Add((naiveres.Item1, naiveres.Item2, naiveStopW.ElapsedTicks));
+                naivetime += naiveStopW.ElapsedTicks;
+                naiveStopW.Reset();
+            }
 
             tableStopW.Start();
             var resTable = Algorithms.GetTable("abcab");
@@ -102,21 +110,9 @@ namespace AZ_KMP_Tests
                 KMP2StopW.Reset();
             }
 
-            foreach (var instance in inputs)
-            {
-                naiveStopW.Start();
-                var naiveres = Algorithms.NaiveAlgorithm(instance.Item1, instance.Item2);
-                naiveStopW.Stop();
-                naiveResults.Add((naiveres.Item1, naiveres.Item2, naiveStopW.ElapsedTicks));
-                naivetime += naiveStopW.ElapsedTicks;
-                naiveStopW.Reset();
-            }
-
             using (StreamWriter sw = File.CreateText("test2output.txt"))
             {
                 sw.WriteLine("inputTextLength:inputPatternLength:patternOccurences:KMPComparisons:KMPTime:KMP2Time:KMPOccurences:naiveComparisons:naiveTime:naiveOccurences");
-                //sw.WriteLine($"{KMPStopW.ElapsedMilliseconds}:{naiveStopW.ElapsedMilliseconds}");
-                //sw.WriteLine($"{avgKMP}:{avgNaive}");
                 for (int i = 0; i < inputs.Count; i++)
                     sw.WriteLine($"{inputs[i].Item1.Length}:{inputs[i].Item2.Length}:{inputs[i].Item3}:{KMPResults[i].Item2}:{KMPResults[i].Item3}:{KMP2Results[i].Item3}:{KMPResults[i].Item1.Count}:{naiveResults[i].Item2}:{naiveResults[i].Item3}:{naiveResults[i].Item1.Count}");
             }

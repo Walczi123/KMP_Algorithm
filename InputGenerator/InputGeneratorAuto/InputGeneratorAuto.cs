@@ -10,7 +10,7 @@ namespace InputGeneratorAuto
     public static class InputGeneratorAuto
     {
         private static string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        private static string charactersWithSymbols = characters + ",.; ";
+        private static string charactersWithSymbols = characters + ",.;?! ";
         public static List<(string, string, int)> GenerateInputAuto(int iterations)
         {
             var result = new List<(string, string, int)>();
